@@ -13,23 +13,22 @@ public class Brush : MonoBehaviour
     {
         mainCamera = Camera.main;
         renderTexture.Initialize();
-        renderTexture.updateMode = CustomRenderTextureUpdateMode.Realtime; // Включаем постоянное обновление
+        renderTexture.updateMode = CustomRenderTextureUpdateMode.Realtime;
+        heightMapMaterial.SetVector(DrawPosition, new Vector4(-2, -2, 0, 0));
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0)) // Проверяем нажатие мыши
+        if (Input.GetMouseButton(0)) 
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                Vector2 hitTextureCoord = hit.textureCoord; // Получаем координаты удара в текстуре
+                Vector2 hitTextureCoord = hit.textureCoord;
                 
                 heightMapMaterial.SetVector(DrawPosition, new Vector4(hitTextureCoord.x, hitTextureCoord.y, 0, 0));
                 
-                // Принудительно обновляем текстуру
-                Debug.Log($"Координаты: {hitTextureCoord.x}, {hitTextureCoord.y}");
                 renderTexture.Update();
             }
         }
