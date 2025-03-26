@@ -7,12 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_UVTintShader
+  m_Name: HairColorMat
   m_Shader: {fileID: -6465566751694194690, guid: 863fe148073f6b24cbb4383cc3d0de4e,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _BLENDMODE_SOLID
+  - _COLORPRESET_RED
   - _DISABLE_SSR_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -31,8 +33,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _HairColorTex:
+        m_Texture: {fileID: 8400000, guid: d0d0a0918c444024ca6dcfba08305c48, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 10309, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 8400000, guid: d0d0a0918c444024ca6dcfba08305c48, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PatternTex:
+        m_Texture: {fileID: 2800000, guid: c50fa2cd4aa97f241be13281ac3cbd6f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -53,8 +63,15 @@ Material:
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
+    - _BLENDMODE: 0
     - _BlendMode: 0
+<<<<<<< HEAD:Assets/Materials/Shader Graphs_UVTintShader.mat
     - _BrushRadius: 0.535
+=======
+    - _BrushOpacity: 1
+    - _BrushRadius: 0.235
+    - _COLORPRESET: 0
+>>>>>>> f2bd1fe2222656c20d740d4e2bfebac8da61f79e:Assets/Materials/HairColorMat.mat
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 2
     - _CullModeForward: 2
@@ -67,6 +84,7 @@ Material:
     - _EnableFogOnTransparent: 1
     - _ExcludeFromTUAndAA: 0
     - _OpaqueCullMode: 2
+    - _PatternScale: 1
     - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
@@ -99,10 +117,17 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
+<<<<<<< HEAD:Assets/Materials/Shader Graphs_UVTintShader.mat
     - _BrushColor: {r: 0.7019608, g: 0.22352941, b: 0.22352941, a: 1}
     - _BrushPosition: {r: 0.37, g: 0.31, b: 0, a: 0}
+=======
+    - _BrushColor: {r: 1, g: 0.4, b: 0.8, a: 1}
+    - _BrushPosition: {r: 0.6384453, g: 0.98325074, b: 0, a: 0}
+    - _BrushUV: {r: 1.48, g: 0.4493187, b: 0, a: 0}
+>>>>>>> f2bd1fe2222656c20d740d4e2bfebac8da61f79e:Assets/Materials/HairColorMat.mat
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColor: {r: 0.7019608, g: 0.22352941, b: 0.22352941, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &2038283720541826306
 MonoBehaviour:
