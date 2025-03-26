@@ -54,7 +54,7 @@ Material:
     - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
     - _BlendMode: 0
-    - _BrushRadius: 0.305
+    - _BrushRadius: 0.535
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 2
     - _CullModeForward: 2
@@ -100,7 +100,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BrushColor: {r: 0.7019608, g: 0.22352941, b: 0.22352941, a: 1}
-    - _BrushPosition: {r: 0.28, g: 0.47, b: 0, a: 0}
+    - _BrushPosition: {r: 0.37, g: 0.31, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
