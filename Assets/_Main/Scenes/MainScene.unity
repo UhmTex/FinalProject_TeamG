@@ -205,10 +205,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1441229833}
   m_HandleRect: {fileID: 911719988}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -388,6 +388,14 @@ MonoBehaviour:
   ShapingSlider: {fileID: 47899661}
   ColorDropdown: {fileID: 1225308140}
   Plane: {fileID: 0}
+  Colors:
+  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!4 &207554140
 Transform:
   m_ObjectHideFlags: 0
@@ -1412,7 +1420,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Option A
+  m_text: Black
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2437,11 +2445,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Option A
+    - m_Text: Black
       m_Image: {fileID: 0}
-    - m_Text: Option B
-      m_Image: {fileID: 0}
-    - m_Text: Option C
+    - m_Text: White
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3722,11 +3728,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2020185175260310552, guid: 25d95ca320bb1eb41b56a4bf62bc4011,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 868858169}
     - target: {fileID: 6957167907915167209, guid: 25d95ca320bb1eb41b56a4bf62bc4011,
         type: 3}
       propertyPath: m_Name
       value: Plane
       objectReference: {fileID: 0}
+    - target: {fileID: 8466646003143372903, guid: 25d95ca320bb1eb41b56a4bf62bc4011,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f270cfa4a29ca44d911f2d6db35d426, type: 2}
+    - target: {fileID: 8466646003143372903, guid: 25d95ca320bb1eb41b56a4bf62bc4011,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 41d520884458d00419ab5c858aae7c40, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6957167907915167209}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -65,6 +65,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 41d520884458d00419ab5c858aae7c40, type: 2}
+  - {fileID: 2100000, guid: fb4da75118d46fb419a77395790907f5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,7 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d9f4805fe4d98a963796f3915ce47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
+  HeightMapMaterial: {fileID: 2100000, guid: 9aa581ac57ccd534392605fc975a259c, type: 2}
+  PaintMaterial: {fileID: 2100000, guid: 581bed93115a54440973d32997415255, type: 2}
 --- !u!114 &2020185175260310552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,6 +135,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 767d308a1cdb82744a8859fb56cce296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderTexture: {fileID: 8600000, guid: 0745fa9f46873334c9d76d168dffbb0b, type: 2}
-  heightMapMaterial: {fileID: 2100000, guid: 581bed93115a54440973d32997415255, type: 2}
+  heightMapRenderTexture: {fileID: 8600000, guid: 0745fa9f46873334c9d76d168dffbb0b,
+    type: 2}
+  PaintingRenderTexture: {fileID: 8600000, guid: 64eed6b1ae04de64f93c5c9a547b9ec8,
+    type: 2}
+  heightMapMaterial: {fileID: 2100000, guid: 9aa581ac57ccd534392605fc975a259c, type: 2}
+  paintingMaterial: {fileID: 2100000, guid: 581bed93115a54440973d32997415255, type: 2}
   mainCamera: {fileID: 0}

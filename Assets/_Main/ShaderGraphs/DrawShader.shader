@@ -32,7 +32,21 @@ Shader "Unlit/DrawShader"
                 float dist = distance(IN.localTexcoord.xy, _DrawPosition.xy);
                 float brushAlpha = smoothstep(_BrushSize, 0, dist);
 
-                float4 drawColor = _BrushColor * brushAlpha;
+                bool isBlack = _BrushColor == float4(0,0,0,1);
+
+                float4 drawColor;
+
+                if (isBlack) 
+                {
+                    // Create a transparent color 
+                    drawColor = float4(previousColor.rgb, max(0, previousColor.a - brushAlpha));
+                }
+                else
+                {
+                    drawColor = _BrushColor * brushAlpha;
+                    drawColor.a = brushAlpha;
+                }
+
 
                 return lerp(previousColor, drawColor, brushAlpha);
             }

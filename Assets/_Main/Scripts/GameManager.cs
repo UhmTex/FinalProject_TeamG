@@ -17,8 +17,13 @@ public class GameManager : MonoBehaviour
     
     public Tool CurrentTool { get; private set; }
     
-
     public Plane Plane;
+    
+    public Color[] Colors =
+    {
+        new(0,0,0,1),
+        new(1,1,1,1),
+    };
 
     private void Awake()
     {
@@ -36,6 +41,9 @@ public class GameManager : MonoBehaviour
     {
         ToolDropdown.onValueChanged.AddListener(delegate { SetCurrentTool((Tool) ToolDropdown.value); });
         SetCurrentTool(Tool.Shaping);
+        
+        ColorDropdown.onValueChanged.AddListener(delegate { Plane.PaintMaterial.SetColor("_BrushColor",Colors[ColorDropdown.value]); });
+        Plane.PaintMaterial.SetColor("_BrushColor",Colors[0]);
     }
 
     private void Update()
@@ -70,20 +78,19 @@ public class GameManager : MonoBehaviour
 
     public void Grade()
     {
-        var heightGrade = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.GetComponent<Brush>().renderTexture), Texture2D.blackTexture, TextureComparer.DifficultyLevel.Medium);
+        var heightGrade = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.GetComponent<Brush>().heightMapRenderTexture), Texture2D.blackTexture, TextureComparer.DifficultyLevel.Medium);
         Debug.Log("height grade is " + heightGrade);
     }
 
     public Texture2D RenderTextureToTexture2D(RenderTexture renderTexture)
     {
         RenderTexture currentRT = RenderTexture.active;
-        RenderTexture.active = Plane.GetComponent<Brush>().renderTexture;
         
-        Texture2D planeHeight = new Texture2D(Plane.GetComponent<Brush>().renderTexture.width, Plane.GetComponent<Brush>().renderTexture.height, TextureFormat.RGBA32, false);
-        planeHeight.ReadPixels(new Rect(0, 0, planeHeight.width, planeHeight.height), 0, 0);
-        planeHeight.Apply();
+        Texture2D tex = new Texture2D(renderTexture.width,renderTexture.height, TextureFormat.RGBA32, false);
+        tex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0);
+        tex.Apply();
         
         RenderTexture.active = currentRT;
-        return planeHeight;
+        return tex;
     }
 }
