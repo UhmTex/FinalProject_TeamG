@@ -1,14 +1,16 @@
-Shader "Grass Height Map Update"
+Shader "Unlit/DrawShader"
 {
     Properties
     {
-        _DrawPosiotion ("Draw Position", Vector) = (-1,-1,0,0)
+        _DrawPosition ("Draw Position", Vector) = (-1,-1,0,0)
+        _BrushSize ("Brush Size", Range(0.01, 0.2)) = 0.05
+        _BrushColor ("Brush Color", Color) = (1,1,1,1)
     }
 
     SubShader
     {
         Lighting Off
-        Blend One Zero
+        Blend One OneMinusSrcAlpha
         
         Pass
         {
@@ -19,13 +21,20 @@ Shader "Grass Height Map Update"
             #pragma target 3.0
             
             float4 _DrawPosition;
-            
+            float _BrushSize;
+            float4 _BrushColor;
+
             float4 frag(v2f_customrendertexture IN) : COLOR
             {
-                //float4 color = tex2D(_SelfTexture2D, IN.localTexcoord.xy);
-                float4 color = smoothstep(0,.2, distance(IN.localTexcoord.xy, _DrawPosition));
-                 
-                return color;
+
+                float4 previousColor = tex2D(_SelfTexture2D, IN.localTexcoord.xy);
+      
+                float dist = distance(IN.localTexcoord.xy, _DrawPosition.xy);
+                float brushAlpha = smoothstep(_BrushSize, 0, dist);
+
+                float4 drawColor = _BrushColor * brushAlpha;
+
+                return lerp(previousColor, drawColor, brushAlpha);
             }
             ENDCG
         }
