@@ -7,7 +7,9 @@ using TMPro;
 using UnityEditor;
 using UnityEngine.VFX;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
+[DefaultExecutionOrder(1)]
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -16,6 +18,8 @@ public class GameManager : MonoBehaviour
     public Slider ShapingSlider;
     public TMP_Dropdown ColorDropdown;
     public TMP_Dropdown DifficultyDropdown;
+
+    public TMP_Text ScoreText;
     
     public Slider BushSizeSlider;
     
@@ -25,6 +29,8 @@ public class GameManager : MonoBehaviour
     public TargetPlane TargetPlane;
 
     private Color[] _colors;
+
+    private bool GameEnded;
 
     [SerializeField]
     private VisualEffect CircleVFX;
@@ -92,14 +98,19 @@ public class GameManager : MonoBehaviour
             {
                 Plane.gameObject.SetActive(false);
                 TargetPlane.gameObject.SetActive(true);
-            }
+            }            
 
             if (Input.GetKeyUp(KeyCode.Tab))
             {
                 Plane.gameObject.SetActive(true);
                 TargetPlane.gameObject.SetActive(false);
             }
-            
+
+            if (Input.GetKeyDown(KeyCode.F) && GameEnded)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
+            }
+
             CircleVFX.SetFloat("CircleRadius", val * 10);
         }
     }
@@ -134,6 +145,11 @@ public class GameManager : MonoBehaviour
         
         float grade = (heightGrade + paint) / 2;
         Debug.Log(" grade is " + grade);
+
+        ScoreText.enabled = true;
+        ScoreText.text = $"Your Grade Is: {(int)(grade*100)}\n\nPress F To Restart";
+
+        GameEnded = true;
     }
 
     [ContextMenu("Save Textures")]

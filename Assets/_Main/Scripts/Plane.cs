@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace _Main.Scripts
 {
+	[DefaultExecutionOrder(0)]
 	public class Plane : MonoBehaviour
 	{
 		public Material HeightMapMaterial;
@@ -13,11 +14,13 @@ namespace _Main.Scripts
 		
 		private void Start()
 		{
-			GameManager.instance.Plane = this;
-			
-			var b = GetComponent<Brush>();
+            GameManager.instance.Plane = this;
+
+            var b = GetComponent<Brush>();
 			HeightMapTexture = b.heightMapRenderTexture;
 			PaintTexture = b.PaintingRenderTexture;
 		}
-	}
+
+        
+    }
 }
