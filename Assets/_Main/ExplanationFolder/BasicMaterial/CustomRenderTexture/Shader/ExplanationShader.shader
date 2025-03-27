@@ -22,10 +22,10 @@
             
             float4 frag(v2f_customrendertexture IN) : COLOR
             {
-                float4 previousColor = tex2D(_SelfTexture2D, IN.localTexcoord.xy);
+                //float4 previousColor = tex2D(_SelfTexture2D, IN.localTexcoord.xy);
                 float4 drawColor = smoothstep(0,.2,distance(IN.localTexcoord.xy, _DrawPosition));
                 
-                return min(drawColor, previousColor);
+                return drawColor; //min(drawColor, previousColor);
             }
             ENDCG
         }
