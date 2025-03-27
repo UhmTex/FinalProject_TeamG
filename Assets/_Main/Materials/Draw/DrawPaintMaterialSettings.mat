@@ -30,7 +30,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BrushHardness: 0.133
-    - _BrushSize: 0.1
+    - _BrushSize: 0.03136763
     - _Offset: 0.05
     - _Opacity: 0
     m_Colors:

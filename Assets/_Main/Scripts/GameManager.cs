@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public Tool CurrentTool { get; private set; }
     
     public Plane Plane;
+    public TargetPlane TargetPlane;
 
     private Color[] _colors;
     
@@ -74,6 +75,18 @@ public class GameManager : MonoBehaviour
             var val = BushSizeSlider.value;
             Plane.PaintMaterial.SetFloat("_BrushSize", val);
             Plane.HeightMapMaterial.SetFloat("_BrushSize", val);
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                Plane.gameObject.SetActive(false);
+                TargetPlane.gameObject.SetActive(true);
+            }
+
+            if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                Plane.gameObject.SetActive(true);
+                TargetPlane.gameObject.SetActive(false);
+            }
         }
     }
     
@@ -98,8 +111,8 @@ public class GameManager : MonoBehaviour
 
     public void Grade()
     {
-        var heightGrade = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.HeightMapTexture), Texture2D.blackTexture, (TextureComparer.DifficultyLevel)DifficultyDropdown.value);
-        var paint = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.PaintTexture), Texture2D.blackTexture, (TextureComparer.DifficultyLevel)DifficultyDropdown.value);
+        var heightGrade = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.HeightMapTexture), TargetPlane.HeightMapTexture, (TextureComparer.DifficultyLevel)DifficultyDropdown.value);
+        var paint = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.PaintTexture), TargetPlane.PaintTexture, (TextureComparer.DifficultyLevel)DifficultyDropdown.value);
         
         float grade = (heightGrade + paint) / 2;
         Debug.Log(" grade is " + grade);

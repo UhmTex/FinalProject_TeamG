@@ -10,11 +10,9 @@ namespace _Main.Scripts
 		
 		public RenderTexture HeightMapTexture;
 		public RenderTexture PaintTexture;
-
 		
 		private void Start()
 		{
-			
 			GameManager.instance.Plane = this;
 			
 			var b = GetComponent<Brush>();

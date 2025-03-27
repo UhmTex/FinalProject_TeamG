@@ -63,7 +63,7 @@ namespace TextureCompare
 					return ResizeTexture(originalTexture, 4, 4);
 					
 				case DifficultyLevel.Hard:
-					return originalTexture;
+					return ResizeTexture(originalTexture, 8, 8);;
 					
 				default:
 					return originalTexture;
