@@ -7,12 +7,19 @@ namespace _Main.Scripts
 	{
 		public Material HeightMapMaterial;
 		public Material PaintMaterial;
+		
+		public RenderTexture HeightMapTexture;
+		public RenderTexture PaintTexture;
 
 		
 		private void Start()
 		{
 			
 			GameManager.instance.Plane = this;
+			
+			var b = GetComponent<Brush>();
+			HeightMapTexture = b.heightMapRenderTexture;
+			PaintTexture = b.PaintingRenderTexture;
 		}
 	}
 }

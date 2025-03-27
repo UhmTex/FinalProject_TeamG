@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using TextureCompare;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,6 +45,12 @@ public class GameManager : MonoBehaviour
             Color.black,
         };
     }
+    
+    public enum Tool
+    {
+        Shaping,
+        Painting,
+    }
 
     private void Start()
     {
@@ -69,11 +73,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public enum Tool
-    {
-        Shaping,
-        Painting,
-    }
 
     public void SetCurrentTool(Tool tool)
     {
@@ -93,19 +92,24 @@ public class GameManager : MonoBehaviour
 
     public void Grade()
     {
-        var heightGrade = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.GetComponent<Brush>().heightMapRenderTexture), Texture2D.blackTexture, TextureComparer.DifficultyLevel.Medium);
-        Debug.Log("height grade is " + heightGrade);
+        var heightGrade = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.HeightMapTexture), Texture2D.blackTexture, TextureComparer.DifficultyLevel.Medium);
+        var paint = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.PaintTexture), Texture2D.blackTexture, TextureComparer.DifficultyLevel.Medium);
+        
+        float grade = (heightGrade + paint) / 2;
+        Debug.Log(" grade is " + grade);
     }
 
     public Texture2D RenderTextureToTexture2D(RenderTexture renderTexture)
     {
         RenderTexture currentRT = RenderTexture.active;
-        
-        Texture2D tex = new Texture2D(renderTexture.width,renderTexture.height, TextureFormat.RGBA32, false);
+        RenderTexture.active = renderTexture;
+
+        Texture2D tex = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGBA32, false);
         tex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0);
         tex.Apply();
-        
+
         RenderTexture.active = currentRT;
+
         return tex;
     }
 }
