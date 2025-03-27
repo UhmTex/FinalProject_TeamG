@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using Plane = _Main.Scripts.Plane;
 using TMPro;
 using UnityEditor;
+using UnityEngine.VFX;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,7 +25,13 @@ public class GameManager : MonoBehaviour
     public TargetPlane TargetPlane;
 
     private Color[] _colors;
-    
+
+    [SerializeField]
+    private VisualEffect CircleVFX;
+
+    [SerializeField]
+    private VisualEffect SprayVFX;
+
 
     private void Awake()
     {
@@ -62,8 +70,12 @@ public class GameManager : MonoBehaviour
         ToolDropdown.onValueChanged.AddListener(delegate { SetCurrentTool((Tool) ToolDropdown.value); });
         SetCurrentTool(Tool.Shaping);
         
-        ColorDropdown.onValueChanged.AddListener(delegate { Plane.PaintMaterial.SetColor("_BrushColor",_colors[ColorDropdown.value]); });
+        ColorDropdown.onValueChanged.AddListener(delegate { 
+            Plane.PaintMaterial.SetColor("_BrushColor",_colors[ColorDropdown.value]);
+            SprayVFX.SetVector4("SprayColor", _colors[ColorDropdown.value] * 50);
+        });
         Plane.PaintMaterial.SetColor("_BrushColor",_colors[0]);
+        SprayVFX.SetVector4("SprayColor", _colors[0] * 50);
     }
 
     private void Update()
@@ -87,10 +99,16 @@ public class GameManager : MonoBehaviour
                 Plane.gameObject.SetActive(true);
                 TargetPlane.gameObject.SetActive(false);
             }
+            
+            CircleVFX.SetFloat("CircleRadius", val * 10);
         }
     }
     
-    
+    public void ResetCircleVFX()
+    {
+        CircleVFX.enabled = false;
+        CircleVFX.enabled = true;
+    }
 
 
     public void SetCurrentTool(Tool tool)

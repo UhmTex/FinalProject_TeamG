@@ -108,7 +108,7 @@ public class Brush : MonoBehaviour
                }
            }
            else
-           {
+           {                
                 SparklesVFX.enabled = false;
                 GrassCuttingVFX.enabled = false;
                 heightMapMaterial.SetVector(DrawPosition, new Vector4(-2, -2, 0, 0));
@@ -116,6 +116,8 @@ public class Brush : MonoBehaviour
         }
         else if (GameManager.instance.CurrentTool == GameManager.Tool.Painting)
         {
+            CircleVFX.enabled = false;
+
             if (Input.GetMouseButton(0)) 
             {
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -127,10 +129,15 @@ public class Brush : MonoBehaviour
                     paintingMaterial.SetVector(DrawPosition, new Vector4(hitTextureCoord.x, hitTextureCoord.y, 0, 0));
                            
                     PaintingRenderTexture.Update();
+
+                    SprayVFX.enabled = true;
+
+                    SprayVFX.SetVector3("Target", hit.point + new Vector3(0,0.1f,0));
                 }
             }
             else
             {
+                SprayVFX.enabled = false;
                 paintingMaterial.SetVector(DrawPosition, new Vector4(-2, -2, 0, 0));
             } 
         }
