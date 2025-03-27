@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Plane = _Main.Scripts.Plane;
 using TMPro;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,6 +53,8 @@ public class GameManager : MonoBehaviour
         Shaping,
         Painting,
     }
+    
+        
 
     private void Start()
     {
@@ -73,6 +76,8 @@ public class GameManager : MonoBehaviour
             Plane.HeightMapMaterial.SetFloat("_BrushSize", val);
         }
     }
+    
+    
 
 
     public void SetCurrentTool(Tool tool)
@@ -100,6 +105,30 @@ public class GameManager : MonoBehaviour
         Debug.Log(" grade is " + grade);
     }
 
+    [ContextMenu("Save Textures")]
+    public void SaveTextures()
+    {
+        // Convert HeightMap RenderTexture to Texture2D
+        Texture2D heightTexture = RenderTextureToTexture2D(Plane.HeightMapTexture);
+
+        // Save the HeightMap texture as an asset
+        byte[] heightBytes = heightTexture.EncodeToPNG();
+        string heightPath = $"Assets/_Main/PreMade/HeightMapTexture_{System.DateTime.Now:yyyyMMdd_HHmmss}.png";
+        System.IO.File.WriteAllBytes(heightPath, heightBytes);
+        AssetDatabase.ImportAsset(heightPath);
+
+        // Convert Paint RenderTexture to Texture2D
+        Texture2D paintTexture = RenderTextureToTexture2D(Plane.PaintTexture);
+
+        // Save the Paint texture as an asset
+        byte[] paintBytes = paintTexture.EncodeToPNG();
+        string paintPath = $"Assets/_Main/PreMade/PaintTexture_{System.DateTime.Now:yyyyMMdd_HHmmss}.png";
+        System.IO.File.WriteAllBytes(paintPath, paintBytes);
+        AssetDatabase.ImportAsset(paintPath);
+
+        Debug.Log("Textures saved to Assets/SavedTextures/");
+    }
+    
     public Texture2D RenderTextureToTexture2D(RenderTexture renderTexture)
     {
         RenderTexture currentRT = RenderTexture.active;
