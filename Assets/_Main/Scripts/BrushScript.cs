@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Brush : MonoBehaviour
 {
@@ -8,7 +9,13 @@ public class Brush : MonoBehaviour
     public CustomRenderTexture PaintingRenderTexture;
     public Material heightMapMaterial;
     public Material paintingMaterial;
-    
+
+    [SerializeField]
+    private VisualEffect GrassCuttingVFX;
+
+    [SerializeField]
+    private VisualEffect SparklesVFX;
+
     public Camera mainCamera;
     
 
@@ -24,6 +31,20 @@ public class Brush : MonoBehaviour
         paintingMaterial.SetVector(DrawPosition, new Vector4(-2, -2, 0, 0));
     }
 
+    public Texture2D RenderTextureToTexture2D(RenderTexture renderTexture)
+    {
+        RenderTexture currentRT = RenderTexture.active;
+        RenderTexture.active = renderTexture;
+
+        Texture2D tex = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGBA32, false);
+        tex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0);
+        tex.Apply();
+
+        RenderTexture.active = currentRT;
+
+        return tex;
+    }
+
     private void Update()
     {
         if (GameManager.instance.CurrentTool == GameManager.Tool.Shaping)
@@ -34,16 +55,51 @@ public class Brush : MonoBehaviour
            
                if (Physics.Raycast(ray, out RaycastHit hit))
                {
-                   Vector2 hitTextureCoord = hit.textureCoord;
+
+                    GrassCuttingVFX.transform.position = hit.point + new Vector3(0,1,0);
+                    SparklesVFX.transform.position = hit.point + new Vector3(0,1,0);
+
+                    Vector2 hitTextureCoord = hit.textureCoord;
+
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        Texture2D checkTex = RenderTextureToTexture2D(heightMapRenderTexture);
+
+                        int texelX = Mathf.FloorToInt(hitTextureCoord.x * checkTex.width);
+                        int texelY = Mathf.FloorToInt(hitTextureCoord.y * checkTex.height);
+
+                        Color checkedColor = checkTex.GetPixel(texelX, texelY, 0);
+
+                        Color brushColor = heightMapMaterial.GetColor("_BrushColor");
+
+                        Debug.Log($"{checkedColor} checked - {brushColor} brush");
+
+                        if (checkedColor.r < brushColor.r)
+                        {
+                            SparklesVFX.enabled = true;
+                        }
+                        else if (checkedColor.r == brushColor.r)
+                        {
+                            SparklesVFX.enabled = false;
+                            GrassCuttingVFX.enabled = false;
+                        }
+                        else
+                        {
+                            SparklesVFX.enabled = false;
+                            GrassCuttingVFX.enabled = true;
+                        }
+                    }                    
                            
-                   heightMapMaterial.SetVector(DrawPosition, new Vector4(hitTextureCoord.x, hitTextureCoord.y, 0, 0));
+                    heightMapMaterial.SetVector(DrawPosition, new Vector4(hitTextureCoord.x, hitTextureCoord.y, 0, 0));
                            
-                   heightMapRenderTexture.Update();
+                    heightMapRenderTexture.Update();
                }
            }
            else
            {
-               heightMapMaterial.SetVector(DrawPosition, new Vector4(-2, -2, 0, 0));
+                SparklesVFX.enabled = false;
+                GrassCuttingVFX.enabled = false;
+                heightMapMaterial.SetVector(DrawPosition, new Vector4(-2, -2, 0, 0));
            } 
         }
         else if (GameManager.instance.CurrentTool == GameManager.Tool.Painting)
