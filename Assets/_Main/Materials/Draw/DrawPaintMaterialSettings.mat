@@ -29,10 +29,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BrushSize: 0.046
+    - _BrushHardness: 0.133
+    - _BrushSize: 0.0996
     - _Offset: 0.05
     - _Opacity: 0
     m_Colors:
-    - _BrushColor: {r: 0, g: 0, b: 0, a: 0}
+    - _BrushColor: {r: 1, g: 0, b: 0, a: 1}
     - _DrawPosition: {r: -2, g: -2, b: 0, a: 0}
   m_BuildTextureStacks: []

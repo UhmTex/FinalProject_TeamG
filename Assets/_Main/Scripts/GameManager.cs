@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public Slider ShapingSlider;
     public TMP_Dropdown ColorDropdown;
     
+    public Slider BushSizeSlider;
+    
     public Tool CurrentTool { get; private set; }
     
     public Plane Plane;
@@ -60,6 +62,10 @@ public class GameManager : MonoBehaviour
         if (Plane != null)
         {
             Plane.HeightMapMaterial.SetColor("_BrushColor",Color.Lerp(Color.black, Color.white, ShapingSlider.value));
+            
+            var val = BushSizeSlider.value;
+            Plane.PaintMaterial.SetFloat("_BrushSize", val);
+            Plane.HeightMapMaterial.SetFloat("_BrushSize", val);
         }
     }
 
