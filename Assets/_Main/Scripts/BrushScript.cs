@@ -16,6 +16,12 @@ public class Brush : MonoBehaviour
     [SerializeField]
     private VisualEffect SparklesVFX;
 
+    [SerializeField]
+    private VisualEffect SprayVFX;
+
+    [SerializeField]
+    private VisualEffect CircleVFX;
+
     public Camera mainCamera;
     
 
@@ -49,6 +55,14 @@ public class Brush : MonoBehaviour
     {
         if (GameManager.instance.CurrentTool == GameManager.Tool.Shaping)
         {
+            Ray CirclePlacementRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(CirclePlacementRay, out RaycastHit objHit))
+            {
+                CircleVFX.transform.position = objHit.point + new Vector3(0,0.3f,0);
+                CircleVFX.enabled = true;
+            }
+
            if (Input.GetMouseButton(0)) 
            {
                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -71,8 +85,6 @@ public class Brush : MonoBehaviour
                         Color checkedColor = checkTex.GetPixel(texelX, texelY, 0);
 
                         Color brushColor = heightMapMaterial.GetColor("_BrushColor");
-
-                        Debug.Log($"{checkedColor} checked - {brushColor} brush");
 
                         if (checkedColor.r < brushColor.r)
                         {
