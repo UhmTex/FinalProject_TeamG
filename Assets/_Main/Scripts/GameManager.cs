@@ -18,12 +18,9 @@ public class GameManager : MonoBehaviour
     public Tool CurrentTool { get; private set; }
     
     public Plane Plane;
+
+    private Color[] _colors;
     
-    public Color[] Colors =
-    {
-        new(0,0,0,1),
-        new(1,1,1,1),
-    };
 
     private void Awake()
     {
@@ -35,6 +32,18 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        _colors = new[]
+        {
+            Color.red,
+            Color.blue,
+            Color.green,
+            Color.yellow,
+            Color.magenta,
+            Color.cyan,
+            Color.white,
+            Color.black,
+        };
     }
 
     private void Start()
@@ -42,8 +51,8 @@ public class GameManager : MonoBehaviour
         ToolDropdown.onValueChanged.AddListener(delegate { SetCurrentTool((Tool) ToolDropdown.value); });
         SetCurrentTool(Tool.Shaping);
         
-        ColorDropdown.onValueChanged.AddListener(delegate { Plane.PaintMaterial.SetColor("_BrushColor",Colors[ColorDropdown.value]); });
-        Plane.PaintMaterial.SetColor("_BrushColor",Colors[0]);
+        ColorDropdown.onValueChanged.AddListener(delegate { Plane.PaintMaterial.SetColor("_BrushColor",_colors[ColorDropdown.value]); });
+        Plane.PaintMaterial.SetColor("_BrushColor",_colors[0]);
     }
 
     private void Update()

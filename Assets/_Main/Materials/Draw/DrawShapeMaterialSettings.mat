@@ -32,6 +32,6 @@ Material:
     - _BrushSize: 0.051
     - _Offset: 0.05
     m_Colors:
-    - _BrushColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BrushColor: {r: 0.0001, g: 0.0001, b: 0.0001, a: 1}
     - _DrawPosition: {r: -2, g: -2, b: 0, a: 0}
   m_BuildTextureStacks: []
