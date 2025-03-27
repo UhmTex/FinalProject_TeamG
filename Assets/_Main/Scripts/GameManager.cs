@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public TMP_Dropdown ToolDropdown;
     public Slider ShapingSlider;
     public TMP_Dropdown ColorDropdown;
+    public TMP_Dropdown DifficultyDropdown;
     
     public Slider BushSizeSlider;
     
@@ -92,8 +93,8 @@ public class GameManager : MonoBehaviour
 
     public void Grade()
     {
-        var heightGrade = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.HeightMapTexture), Texture2D.blackTexture, TextureComparer.DifficultyLevel.Medium);
-        var paint = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.PaintTexture), Texture2D.blackTexture, TextureComparer.DifficultyLevel.Medium);
+        var heightGrade = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.HeightMapTexture), Texture2D.blackTexture, (TextureComparer.DifficultyLevel)DifficultyDropdown.value);
+        var paint = TextureComparer.CompareTextures(RenderTextureToTexture2D(Plane.PaintTexture), Texture2D.blackTexture, (TextureComparer.DifficultyLevel)DifficultyDropdown.value);
         
         float grade = (heightGrade + paint) / 2;
         Debug.Log(" grade is " + grade);
