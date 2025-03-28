@@ -26,5 +26,5 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _DrawPosition: {r: 2, g: 2, b: 0, a: 0}
+    - _DrawPosition: {r: 0.3053631, g: 0.31818706, b: 0, a: 0}
   m_BuildTextureStacks: []
